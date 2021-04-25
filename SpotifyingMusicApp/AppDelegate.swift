@@ -9,11 +9,27 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let welcomeViewController: WelcomeViewController = mainStoryboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+        
+        let loginViewController: LoginViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        
+        if AuthManager.shared.isSignedIn{
+           AuthManager.shared.refreshIfNeeded(completion: nil)
+            self.window?.rootViewController = welcomeViewController
+        } else {
+            self.window?.rootViewController = loginViewController
+        }
+        
+        self.window?.makeKeyAndVisible()
         return true
     }
 

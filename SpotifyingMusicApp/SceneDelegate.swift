@@ -23,8 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let loginViewController: LoginViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         
+        let rootNC = UINavigationController(rootViewController: welcomeViewController)
+
+        
         if AuthManager.shared.isSignedIn{
-            self.window?.rootViewController = welcomeViewController
+            self.window?.rootViewController = rootNC
         } else {
             self.window?.rootViewController = loginViewController
         }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FeaturedPlaylistsResponse: Codable {
+struct PlaylistsResponse: Codable {
     let playlists: PlaylistResponse
 }
 

@@ -9,12 +9,15 @@ import UIKit
 
 class CategoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var categories: [Category]?
+    var playlists: [Playlist]?
+    var type = ""
     
+    @IBOutlet weak var selectLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         navigationController?.setNavigationBarHidden(false, animated: true)
         title = ""
@@ -22,7 +25,7 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.alwaysBounceVertical = false
         tableView.delegate = self
         tableView.dataSource = self
-        self.categories?.shuffle()
+        selectLabel.text = "Select a \(type)"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,9 +44,17 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        let category = categories?[indexPath.row]
         let label = cell.viewWithTag(1000) as! UILabel
-        label.text = category?.name
+        switch type {
+        case "Playlist":
+            label.text = playlists![indexPath.row].name
+            break
+        case "Category":
+            label.text = categories![indexPath.row].name
+            break
+        default:
+            break
+        }
         return cell
     }
     
@@ -75,31 +86,7 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Navigation
     
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//        var sucessful = false
-//        if identifier == "showAnswerChoices" {
-//            if let indexPath = self.tableView.indexPathForSelectedRow {
-//                let group = DispatchGroup()
-//                group.enter()
-//                APICaller.shared.getPlaylists(categoryId: categories![indexPath.row].id) {
-//                    result in
-//                    switch result {
-//                    case .success(_ ):
-//                        sucessful = true
-//                    case .failure(_ ):
-//                        sucessful = false
-//                    }
-//                    group.leave()
-//                }
-//                group.wait()
-//            }
-//        }
-//        tableView.reloadData()
-//        return sucessful
-//    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var playlists: [Playlist]?
         var tracks: [Tracks]?
         
         if segue.identifier == "showAnswerChoices" {
@@ -108,24 +95,44 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
                 group.enter()
                 let controller = segue.destination as! AnswerSelectionViewController
                 //perform api call
-                APICaller.shared.getPlaylists(categoryId: categories![indexPath.row].id) {
-                    result in
-                    switch result {
-                    case .success(let model):
-                        playlists = model.playlists.items
-                        let playlist = playlists!.randomElement()
-                        APICaller.shared.getPlaylistTracks(playlistId: playlist!.id) { result in
-                            switch result {
-                            case .success(let model):
-                                tracks = model.items
-                                group.leave()
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                            }
+                switch type {
+                case "Playlist":
+                    APICaller.shared.getPlaylistTracks(playlistId: playlists![indexPath.row].id) { result in
+                        switch result {
+                        case.success(let model):
+                            tracks = model.items.shuffled()
+                            group.leave()
+                        case.failure(let error):
+                            print(error.localizedDescription)
                         }
-                    case .failure(let error):
-                        print(error.localizedDescription)
                     }
+                    break
+                    
+                case "Category":
+                    var categoryPlaylists: [Playlist]?
+                    APICaller.shared.getPlaylists(categoryId: categories![indexPath.row].id) {
+                        result in
+                        switch result {
+                        case .success(let model):
+                            categoryPlaylists = model.playlists.items.shuffled()
+                            let playlist = categoryPlaylists!.randomElement()
+                            APICaller.shared.getPlaylistTracks(playlistId: playlist!.id) { result in
+                                switch result {
+                                case .success(let model):
+                                    tracks = model.items.shuffled()
+                                    group.leave()
+                                case .failure(let error):
+                                    print(error.localizedDescription)
+                                }
+                            }
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                    }
+                    break
+                    
+                default:
+                    break
                 }
                 group.wait()
                 controller.tracks = (tracks?.filter({ track in

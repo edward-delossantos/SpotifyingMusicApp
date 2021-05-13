@@ -8,11 +8,7 @@
 import Foundation
 
 struct PlaylistsResponse: Codable {
-    let playlists: PlaylistResponse
-}
-
-struct PlaylistResponse: Codable {
-    let items: [Playlist]
+    let playlists: PlaylistItems
 }
 
 struct User: Codable {

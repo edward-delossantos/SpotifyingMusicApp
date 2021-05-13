@@ -9,6 +9,8 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
+    var userID = ""
+    
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     
@@ -35,6 +37,7 @@ class WelcomeViewController: UIViewController {
                     switch result {
                     case .success(let model):
                         self?.usernameLabel?.text = "Logged in as: \(model.display_name)"
+                        UserDefaults.standard.setValue(model.id, forKey: "user_id")
                         UserDefaults.standard.setValue(model.display_name, forKey: "display_name")
                     case .failure(let error):
                         print(error.localizedDescription)
@@ -42,31 +45,6 @@ class WelcomeViewController: UIViewController {
                     }
                 }
             }
-        }
-    }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showCategories" {
-            var categories: [Category]?
-            
-            let group = DispatchGroup()
-            group.enter()
-            let controller = segue.destination as! CategoriesViewController            // Get the new view controller using segue.destination.
-            APICaller.shared.getCategories { result in
-                switch result {
-                case .success(let model):
-                    categories = model.categories.items
-                    group.leave()
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    
-                }
-            }
-            group.wait()
-            controller.categories = categories
         }
     }
 }

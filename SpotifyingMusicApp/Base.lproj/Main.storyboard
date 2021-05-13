@@ -29,7 +29,7 @@
                                     <color key="titleColor" systemColor="systemGreenColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="8GX-yF-jCm" kind="show" identifier="showCategories" id="Aho-Ew-Zzi"/>
+                                    <segue destination="JAd-jW-zxq" kind="show" identifier="showGameMode" id="amU-6s-jrZ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViB-kx-KGN">
@@ -84,41 +84,36 @@ can you do it?</string>
             </objects>
             <point key="canvasLocation" x="3867.6923076923076" y="83.886255924170612"/>
         </scene>
-        <!--View Controller-->
+        <!--Game Mode View Controller-->
         <scene sceneID="XgL-rq-99u">
             <objects>
-                <viewController id="JAd-jW-zxq" sceneMemberID="viewController">
+                <viewController id="JAd-jW-zxq" customClass="GameModeViewController" customModule="SpotifyingMusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7rO-a8-Kry">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="izq-S4-xg8">
-                                <rect key="frame" x="0.0" y="401" width="390" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <state key="normal" title="Artists">
-                                    <color key="titleColor" systemColor="systemGreenColor"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dK-HS-Pdt">
-                                <rect key="frame" x="0.0" y="471" width="390" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dK-HS-Pdt">
+                                <rect key="frame" x="0.0" y="478.33333333333331" width="390" height="41.999999999999943"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="Playlists">
                                     <color key="titleColor" systemColor="systemGreenColor"/>
                                 </state>
+                                <connections>
+                                    <segue destination="8GX-yF-jCm" kind="show" identifier="showPlaylists" id="09e-w0-HBH"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwK-cD-Mth">
-                                <rect key="frame" x="0.0" y="537" width="390" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwK-cD-Mth">
+                                <rect key="frame" x="0.0" y="545.33333333333337" width="390" height="42"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="Categories">
                                     <color key="titleColor" systemColor="systemGreenColor"/>
                                 </state>
+                                <connections>
+                                    <segue destination="8GX-yF-jCm" kind="show" identifier="showCategories" id="86H-pX-WjR"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select a game mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvs-pq-Hvh">
-                                <rect key="frame" x="0.0" y="246" width="390" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a game mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvs-pq-Hvh">
+                                <rect key="frame" x="0.0" y="233" width="390" height="38.333333333333314"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
@@ -126,11 +121,23 @@ can you do it?</string>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8zF-cT-d6c"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2dK-HS-Pdt" firstAttribute="leading" secondItem="8zF-cT-d6c" secondAttribute="leading" id="Xr7-yg-p7r"/>
+                            <constraint firstItem="Kvs-pq-Hvh" firstAttribute="leading" secondItem="8zF-cT-d6c" secondAttribute="leading" id="crV-Yl-aqN"/>
+                            <constraint firstItem="Kvs-pq-Hvh" firstAttribute="top" secondItem="8zF-cT-d6c" secondAttribute="top" constant="145" id="gyu-eA-kFp"/>
+                            <constraint firstItem="cwK-cD-Mth" firstAttribute="leading" secondItem="8zF-cT-d6c" secondAttribute="leading" id="i6q-Qu-Ku8"/>
+                            <constraint firstItem="2dK-HS-Pdt" firstAttribute="trailing" secondItem="8zF-cT-d6c" secondAttribute="trailing" id="j03-Ti-wbR"/>
+                            <constraint firstItem="Kvs-pq-Hvh" firstAttribute="trailing" secondItem="8zF-cT-d6c" secondAttribute="trailing" id="qzv-pf-WLs"/>
+                            <constraint firstItem="cwK-cD-Mth" firstAttribute="top" secondItem="2dK-HS-Pdt" secondAttribute="bottom" constant="25" id="rxB-sd-5aC"/>
+                            <constraint firstItem="2dK-HS-Pdt" firstAttribute="top" secondItem="Kvs-pq-Hvh" secondAttribute="bottom" constant="207" id="tkM-73-wbj"/>
+                            <constraint firstItem="cwK-cD-Mth" firstAttribute="trailing" secondItem="8zF-cT-d6c" secondAttribute="trailing" id="zxJ-D5-4Au"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Vg6-S9-8og"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNg-x1-dmJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3868" y="761"/>
+            <point key="canvasLocation" x="4790.7692307692305" y="83.886255924170612"/>
         </scene>
         <!--Category Screen-->
         <scene sceneID="5RR-iH-yKE">
@@ -191,12 +198,13 @@ can you do it?</string>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Category Screen" id="wf6-WK-f5E"/>
                     <connections>
+                        <outlet property="selectLabel" destination="p7f-gE-bss" id="5Nj-KA-1JM"/>
                         <outlet property="tableView" destination="g54-Cf-acb" id="ddO-N9-9YG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BRk-dH-O4F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4903.0769230769229" y="83.886255924170612"/>
+            <point key="canvasLocation" x="5703" y="84"/>
         </scene>
         <!--Answer Selection Screen-->
         <scene sceneID="pY7-nb-gSN">
@@ -270,7 +278,7 @@ can you do it?</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOc-n9-9Va" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5993.8461538461534" y="83.886255924170612"/>
+            <point key="canvasLocation" x="6600" y="84"/>
         </scene>
         <!--Recap Screen-->
         <scene sceneID="Sra-v9-VoE">
@@ -378,7 +386,7 @@ can you do it?</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MCR-Ic-dwt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6969.2307692307686" y="83.886255924170612"/>
+            <point key="canvasLocation" x="7488" y="84"/>
         </scene>
         <!--High Score View Controller-->
         <scene sceneID="xX3-dt-dHR">
@@ -394,7 +402,7 @@ can you do it?</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4k9-eN-buR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7897" y="84"/>
+            <point key="canvasLocation" x="8392" y="84"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="9ZM-jL-Mrr">
@@ -496,6 +504,9 @@ can you do it?</string>
             <point key="canvasLocation" x="2938.4615384615386" y="83.886255924170612"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="86H-pX-WjR"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
